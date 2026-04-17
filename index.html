@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense &amp; Budget Visualizer</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-theme="light">
+    <header>
+      <h1>Expense &amp; Budget Visualizer</h1>
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+    </header>
+
+    <main>
+      <!-- Add Transaction Form -->
+      <section id="form-section">
+        <form id="transaction-form" novalidate>
+          <div class="form-group">
+            <label for="item-name">Item Name</label>
+            <input
+              id="item-name"
+              type="text"
+              placeholder="e.g. Coffee"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Amount ($)</label>
+            <input
+              id="amount"
+              type="number"
+              min="0.01"
+              step="0.01"
+              placeholder="0.00"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Fun">Fun</option>
+            </select>
+          </div>
+
+          <button type="submit">Add Transaction</button>
+        </form>
+        <div id="form-errors" aria-live="polite"></div>
+      </section>
+
+      <!-- Balance Display -->
+      <section id="balance-section">
+        <p>Total Spent: <span id="balance-display">$0.00</span></p>
+      </section>
+
+      <!-- Controls: Sort + Spending Limit -->
+      <section id="controls-section">
+        <div class="control-group">
+          <label for="sort-control">Sort by:</label>
+          <select id="sort-control">
+            <option value="none">Default</option>
+            <option value="amount-asc">Amount (Low → High)</option>
+            <option value="amount-desc">Amount (High → Low)</option>
+            <option value="category-az">Category (A–Z)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="spending-limit">Spending Limit ($):</label>
+          <input
+            id="spending-limit"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="No limit"
+          />
+        </div>
+      </section>
+
+      <!-- Two-column layout on wide screens, stacked on mobile -->
+      <div id="content-grid">
+        <!-- Transaction List -->
+        <section id="list-section">
+          <h2>Transactions</h2>
+          <ul id="transaction-list">
+            <!-- Populated by renderTransactionList() -->
+          </ul>
+        </section>
+
+        <!-- Chart -->
+        <section id="chart-section">
+          <h2>Spending by Category</h2>
+          <canvas id="spending-chart"></canvas>
+          <p id="chart-empty-state" hidden>No transactions yet.</p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Chart.js CDN must come before app.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

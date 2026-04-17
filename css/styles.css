@@ -1,0 +1,592 @@
+/* =============================================================================
+   CSS CUSTOM PROPERTIES — LIGHT THEME (default)
+   ============================================================================= */
+
+:root {
+  --bg:              #f0f2f5;
+  --text:            #111111;
+  --card:            #ffffff;
+  --border:          #d1d5db;
+  --primary:         #4f46e5;
+  --primary-hover:   #4338ca;
+  --primary-text:    #ffffff;
+  --error:           #dc2626;
+  --error-bg:        #fef2f2;
+  --highlight:       #fef9c3;   /* spending-limit over-limit row */
+  --highlight-border:#fbbf24;
+  --badge-food:      #FF6384;
+  --badge-transport: #36A2EB;
+  --badge-fun:       #FFCE56;
+  --badge-text:      #ffffff;
+  --delete-bg:       #fee2e2;
+  --delete-text:     #991b1b;
+  --delete-hover-bg: #fca5a5;
+  --balance-text:    #4f46e5;
+  --muted:           #6b7280;
+  --focus-ring:      #4f46e5;
+}
+
+/* =============================================================================
+   CSS CUSTOM PROPERTIES — DARK THEME OVERRIDES
+   ============================================================================= */
+
+[data-theme="dark"] {
+  --bg:              #0f172a;
+  --text:            #e2e8f0;
+  --card:            #1e293b;
+  --border:          #334155;
+  --primary:         #818cf8;
+  --primary-hover:   #a5b4fc;
+  --primary-text:    #0f172a;
+  --error:           #f87171;
+  --error-bg:        #450a0a;
+  --highlight:       #422006;
+  --highlight-border:#d97706;
+  --badge-food:      #FF6384;
+  --badge-transport: #36A2EB;
+  --badge-fun:       #FFCE56;
+  --badge-text:      #0f172a;
+  --delete-bg:       #450a0a;
+  --delete-text:     #fca5a5;
+  --delete-hover-bg: #7f1d1d;
+  --balance-text:    #818cf8;
+  --muted:           #94a3b8;
+  --focus-ring:      #818cf8;
+}
+
+/* =============================================================================
+   BASE / RESET
+   ============================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* =============================================================================
+   HEADER
+   ============================================================================= */
+
+header {
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  font-size: clamp(1rem, 2.5vw, 1.375rem);
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.375rem 0.625rem;
+  color: var(--text);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+#theme-toggle:hover {
+  background-color: var(--border);
+}
+
+#theme-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   MAIN LAYOUT
+   ============================================================================= */
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Card-style sections */
+#form-section,
+#balance-section,
+#controls-section,
+#list-section,
+#chart-section {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+}
+
+/* =============================================================================
+   FORM — ADD TRANSACTION  (Requirements 1.1, 1.4, 1.5)
+   ============================================================================= */
+
+#form-section h2,
+#list-section h2,
+#chart-section h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+#transaction-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+.form-group label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.form-group input,
+.form-group select {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  font-size: 0.9375rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  /* Remove default number input spinners on Firefox */
+  -moz-appearance: textfield;
+}
+
+/* Remove spinners on Chrome/Safari */
+.form-group input[type="number"]::-webkit-inner-spin-button,
+.form-group input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 25%, transparent);
+}
+
+/* Fallback for browsers without color-mix */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .form-group input:focus,
+  .form-group select:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+  }
+}
+
+#transaction-form button[type="submit"] {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--primary-text);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.5625rem 1.25rem;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+#transaction-form button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+#transaction-form button[type="submit"]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Inline validation errors  (Requirement 1.4, 1.5) */
+#form-errors {
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--error);
+  background-color: var(--error-bg);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  /* Hidden when empty — no height/padding when content is absent */
+  display: none;
+}
+
+#form-errors:not(:empty) {
+  display: block;
+}
+
+/* =============================================================================
+   BALANCE DISPLAY  (Requirement 4.1)
+   ============================================================================= */
+
+#balance-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#balance-section p {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+#balance-display {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--balance-text);
+  letter-spacing: -0.02em;
+}
+
+/* =============================================================================
+   CONTROLS — SORT + SPENDING LIMIT  (Requirements 7.1, 8.1)
+   ============================================================================= */
+
+#controls-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.control-group label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+#sort-control,
+#spending-limit {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  font-size: 0.9375rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#sort-control:focus,
+#spending-limit:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 25%, transparent);
+}
+
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  #sort-control:focus,
+  #spending-limit:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+  }
+}
+
+#spending-limit::-webkit-inner-spin-button,
+#spending-limit::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* =============================================================================
+   CONTENT GRID — two-column on wide, stacked on mobile  (Requirements 10.1, 10.2)
+   ============================================================================= */
+
+#content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Mobile: single column stack */
+@media (max-width: 767px) {
+  #content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================================================
+   TRANSACTION LIST  (Requirements 2.1, 2.2, 2.3, 3.1)
+   ============================================================================= */
+
+#transaction-list {
+  list-style: none;
+  max-height: 420px;
+  overflow-y: auto;
+  /* Subtle inset shadow to hint scrollability */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+#transaction-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#transaction-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#transaction-list::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 3px;
+}
+
+/* Empty state message */
+.transaction-empty {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* Individual transaction row */
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0.375rem;
+  transition: background-color 0.15s ease;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-item:hover {
+  background-color: color-mix(in srgb, var(--border) 30%, transparent);
+}
+
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .transaction-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  [data-theme="dark"] .transaction-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* Item name — grows to fill available space */
+.transaction-name {
+  flex: 1 1 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Amount */
+.transaction-amount {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   CATEGORY BADGES  (Requirement 2.3)
+   ============================================================================= */
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;   /* pill shape */
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.6rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--badge-text);
+}
+
+.category-badge--food {
+  background-color: var(--badge-food);
+}
+
+.category-badge--transport {
+  background-color: var(--badge-transport);
+}
+
+.category-badge--fun {
+  background-color: var(--badge-fun);
+  /* Fun badge is yellow — use dark text for contrast */
+  color: #1a1a1a;
+}
+
+[data-theme="dark"] .category-badge--fun {
+  color: #1a1a1a;
+}
+
+/* =============================================================================
+   SPENDING LIMIT HIGHLIGHT  (Requirements 8.2, 8.3)
+   ============================================================================= */
+
+.transaction-item.over-limit {
+  background-color: var(--highlight);
+  border-left: 3px solid var(--highlight-border);
+  padding-left: calc(0.5rem - 3px); /* compensate for border */
+}
+
+.transaction-item.over-limit:hover {
+  background-color: var(--highlight);
+  filter: brightness(0.96);
+}
+
+/* =============================================================================
+   DELETE BUTTON  (Requirement 3.1)
+   ============================================================================= */
+
+.delete-btn {
+  background-color: var(--delete-bg);
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  color: var(--delete-text);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.delete-btn:hover {
+  background-color: var(--delete-hover-bg);
+}
+
+.delete-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--focus-ring);
+}
+
+/* =============================================================================
+   CHART SECTION  (Requirements 5.1–5.5)
+   ============================================================================= */
+
+#chart-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chart-section h2 {
+  align-self: flex-start;
+}
+
+#spending-chart {
+  max-width: 320px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+#chart-empty-state {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* =============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================= */
+
+/* Narrow screens: tighten padding, allow form to stack fully */
+@media (max-width: 480px) {
+  main {
+    padding: 1rem 0.75rem;
+    gap: 1rem;
+  }
+
+  #form-section,
+  #balance-section,
+  #controls-section,
+  #list-section,
+  #chart-section {
+    padding: 1rem;
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+  }
+
+  #transaction-form button[type="submit"] {
+    width: 100%;
+  }
+
+  .control-group {
+    flex: 1 1 100%;
+  }
+
+  #balance-display {
+    font-size: 1.375rem;
+  }
+}
+
+/* Ensure no horizontal overflow at 320px */
+@media (max-width: 320px) {
+  header h1 {
+    font-size: 0.9rem;
+  }
+
+  .transaction-item {
+    flex-wrap: wrap;
+  }
+}
